@@ -3,18 +3,18 @@ import 'package:cool_app/teacher_button.dart';
 import 'package:flutter/material.dart';
 
 var teachers = [
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ001', 'Aidan Ocmer'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ001', 'Mr. Aidan Ocmer', subject: 'PR2', advisory: 'St. Augustine of Hippo'))),
   KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Bidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ003', 'Cidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ004', 'Didan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ005', 'Eidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ006', 'Fidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ007', 'Gidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ010', 'Hidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ011', 'Iidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ012', 'Jidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ013', 'Kidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ014', 'Lidan Ocmer'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Cidan Ocmer'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Didan Ocmer'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Eidan Ocmer'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Fidan Ocmer'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Gidan Ocmer'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Hidan Ocmer'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Iidan Ocmer'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Jidan Ocmer'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Kidan Ocmer'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Lidan Ocmer'))),
 ];
 
 void main() {
@@ -24,27 +24,25 @@ void main() {
 class TabletNotifierApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( // Root widget
-      title: 'TSNS',
-      theme: ThemeData(
-        primarySwatch: Colors.blue
-      ),
-      home: TeacherListPage()
-    );
+    return TeacherListPage();
   }
 }
 
 class TeacherListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          Column(children: [
-            const Text('Hello World'),
-            FilledButton(onPressed: () => print('hi'), child: const Text('Notify Teacher')),
-          ],),
-          Expanded(
+    return MaterialApp(
+      title: 'TSNS',
+      theme: ThemeData(
+        primarySwatch: Colors.blue
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Select Teacher'),
+        ),
+        body: Container(
+          margin: EdgeInsets.symmetric(horizontal: 16),
+          child: Expanded(
             child: GridView.count(
               crossAxisCount: 4,
               crossAxisSpacing: 8,
@@ -53,12 +51,7 @@ class TeacherListPage extends StatelessWidget {
               children: teachers,
             )
           )
-          // Expanded(
-          //   child: ListView(
-          //     children: teachers,
-          //   )
-          // )
-        ]
+        )
       )
     );
   }

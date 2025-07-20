@@ -1,5 +1,6 @@
 import 'package:cool_app/constants.dart';
 import 'package:cool_app/teacher.dart';
+import 'package:cool_app/teacher_info.dart';
 import 'package:flutter/material.dart';
 
 enum Availability {
@@ -43,12 +44,27 @@ class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveCli
     this.availability = availability;
   }
 
+  void _onButtonTap(BuildContext context) {
+    // Debug Purposes
+    // setState(() {
+    //   availability = (availability == Availability.notAvailable) ? Availability.available : Availability.notAvailable;
+    // });
+    showModalBottomSheet(
+      context: context, 
+      isScrollControlled: false,
+      constraints: BoxConstraints(
+        maxWidth: double.infinity
+      ),
+      builder: (ctx) => TeacherInfoMenu(availability, teacher: widget.teacher,)
+    );
+  }
+
   @override 
   Widget build(BuildContext context) {
     super.build(context);
 
     final teacher = widget.teacher;
-    Color widgetColor = availableBGColor;
+    // Color widgetColor = availableBGColor;
     Color textColor = availableTextColor;
     double opacity = 1;
 
@@ -56,7 +72,7 @@ class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveCli
         availability == Availability.doNotDisturb || 
         availability == Availability.notAvailable
     ) {
-      widgetColor = unavailableBGColor;
+      // widgetColor = unavailableBGColor;
       textColor = unavailableTextColor;
       opacity = opacityUnavailable;
     }
@@ -66,7 +82,7 @@ class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveCli
       children: [
         Positioned.fill(
           child:Image(
-            image: AssetImage('assets/ProfilePlaceholder.jpg'),
+            image: AssetImage('assets/${widget.teacher?.id}.jpg'),
             fit: BoxFit.cover
           )
         ),
@@ -78,7 +94,7 @@ class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveCli
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: <Color>[
-                Colors.black.withAlpha(128), 
+                Colors.black.withAlpha(200), 
                 Colors.black.withAlpha(0), 
                 Colors.black.withAlpha(0), 
               ]
@@ -98,27 +114,17 @@ class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveCli
 
     return Opacity(
       opacity: opacity,
-      // margin: EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
-        onTap: () {
-          setState(() {
-            availability = (availability == Availability.notAvailable) ? Availability.available : Availability.notAvailable;
-          });
-        },
+        onTap: () => _onButtonTap(context),
         borderRadius: BorderRadius.circular(16),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
-          child: Container(
-            decoration: BoxDecoration(
-              color: widgetColor,
-              borderRadius: BorderRadius.circular(16)
-            ),
-            child: thing,
-          )
+          child: thing,
         )
       )
     );
 
+    // Keeping old code for documentation purposes lol
     // return Container(
     //   margin: EdgeInsets.symmetric(vertical: 8),
     //   child: InkWell(
