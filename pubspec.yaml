@@ -20,4 +20,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/ProfilePlaceholder.jpg
+    - assets/DAZ001.jpg
+    - assets/DAZ002.jpg
