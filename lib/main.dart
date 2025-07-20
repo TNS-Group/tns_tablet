@@ -3,18 +3,24 @@ import 'package:cool_app/teacher_button.dart';
 import 'package:flutter/material.dart';
 
 var teachers = [
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ001', 'Mr. Aidan Ocmer', subject: 'PR2', advisory: 'St. Augustine of Hippo'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Bidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Cidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Didan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Eidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Fidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Gidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Hidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Iidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Jidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Kidan Ocmer'))),
-  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ002', 'Lidan Ocmer'))),
+  // KeepAlive(keepAlive: true, child: TeacherButton(initialAvailability: Availability.available, teacher: Teacher('DAZ001', 'Mr. Aidan Ocmer', subject: 'PR2', advisory: 'St. Augustine of Hippo'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(initialAvailability: Availability.available, teacher: Teacher('DAZ003', 'Ms. Sakuya Izayoi', advisory: 'Scarlet Devil Mansion'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(initialAvailability: Availability.available, teacher: Teacher('DAZ004', 'Ms. Reimu Hakurei', subject: 'Religion', advisory: 'Hakurei Shrine'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ005', 'Ms. Marisa Kirisame', subject: 'Magic Arts'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ006', 'Ms. Cirno', subject: 'Perfect Math'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ007', 'Ms. Keine Kamishirasawa', subject: 'History'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ008', 'Fumo Sanae Koyicha', subject: 'Religion', advisory: 'Moriya Shrone'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ009', 'Ms. Reisen Inaba', subject: 'Arms 101', advisory: 'Eintei'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ010', 'Yukkuri Reimu Hakurei'))),
+
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ003', 'Ms. Sakuya Izayoi', advisory: 'Scarlet Devil Mansion'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ004', 'Ms. Reimu Hakurei', subject: 'Religion', advisory: 'Hakurei Shrine'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ005', 'Ms. Marisa Kirisame', subject: 'Magic Arts'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ006', 'Ms. Cirno', subject: 'Perfect Math'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ007', 'Ms. Keine Kamishirasawa', subject: 'History'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ008', 'Fumo Sanae Koyicha', subject: 'Religion', advisory: 'Moriya Shrone'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ009', 'Ms. Reisen Inaba', subject: 'Arms 101', advisory: 'Eintei'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(teacher: Teacher('DAZ010', 'Yukkuri Reimu Hakurei'))),
 ];
 
 void main() {
@@ -41,12 +47,12 @@ class TeacherListPage extends StatelessWidget {
           title: const Text('Select Teacher'),
         ),
         body: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Expanded(
             child: GridView.count(
               crossAxisCount: 4,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
               childAspectRatio: 0.75,
               children: teachers,
             )

@@ -19,8 +19,16 @@ class TeacherInfoMenu extends StatelessWidget {
     Widget notifyButton = FilledButton(
       onPressed: onNotfiyButtonPressed, 
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+        padding: EdgeInsets.all(16),
         child: Text("${canNotify ? 'Notify' : 'Cannot notify'} ${teacher?.name}")
+      ,) 
+    );
+
+    Widget cancelButton = OutlinedButton(
+      onPressed: () => Navigator.pop(context), 
+      child: Container(
+        padding: EdgeInsets.all(16),
+        child: Text('Cancel') 
       ,) 
     );
 
@@ -32,7 +40,7 @@ class TeacherInfoMenu extends StatelessWidget {
     if (teacher?.subject != null) columnList.add(Text("Teaches ${teacher?.subject}"));
 
     return Container(
-      width: 600,
+      width: 700,
       // margin: EdgeInsets.symmetric(horizontal: 32),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(
@@ -43,11 +51,20 @@ class TeacherInfoMenu extends StatelessWidget {
               SizedBox(
                 width: 200,
                 height: 200,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image(
-                    image: AssetImage("assets/${teacher?.id}.jpg"),
-                    fit: BoxFit.cover,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(color: Colors.black.withAlpha(64), blurRadius: 8, )
+                    ]
+                    // border: BoxBorder.all(color: Colors.black.withAlpha(128), width: 1)
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image(
+                      image: AssetImage("assets/${teacher?.id}.jpg"),
+                      fit: BoxFit.cover,
+                    )
                   )
                 )
               ,),
@@ -58,8 +75,15 @@ class TeacherInfoMenu extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 16,),
-          notifyButton
+          SizedBox(height: 32,),
+          Row(
+            spacing: 16,
+            children: [
+              Spacer(),
+              cancelButton,
+              notifyButton
+            ],
+          )
         ]
       )
     ); 

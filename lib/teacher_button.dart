@@ -27,8 +27,9 @@ extension AvailabilityExtension on Availability {
 
 class TeacherButton extends StatefulWidget {
   final Teacher? teacher;
+  final Availability initialAvailability;
 
-  TeacherButton({this.teacher});
+  TeacherButton({this.teacher, this.initialAvailability = Availability.absent});
 
   @override
   TeacherButtonState createState() => TeacherButtonState();
@@ -36,6 +37,12 @@ class TeacherButton extends StatefulWidget {
 
 class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveClientMixin {
   Availability availability = Availability.notAvailable;
+
+  @override
+  void initState() {
+    super.initState();
+    availability = widget.initialAvailability;
+  }
 
   @override
   bool get wantKeepAlive => true;
@@ -49,6 +56,7 @@ class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveCli
     // setState(() {
     //   availability = (availability == Availability.notAvailable) ? Availability.available : Availability.notAvailable;
     // });
+
     showModalBottomSheet(
       context: context, 
       isScrollControlled: false,
@@ -66,54 +74,63 @@ class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveCli
     final teacher = widget.teacher;
     // Color widgetColor = availableBGColor;
     Color textColor = availableTextColor;
+    Color availabilityTextColor = availableAvailabilityTextColor;
     double opacity = 1;
 
-    if (availability == Availability.absent || 
-        availability == Availability.doNotDisturb || 
-        availability == Availability.notAvailable
-    ) {
+    final bool isAvailable = availability == Availability.available;
+
+    if (!isAvailable) {
       // widgetColor = unavailableBGColor;
       textColor = unavailableTextColor;
+      availabilityTextColor = unavailableAvailabilityTextColor;
       opacity = opacityUnavailable;
     }
 
     Widget thing = Stack(
       fit: StackFit.expand,
       children: [
-        Positioned.fill(
-          child:Image(
-            image: AssetImage('assets/${widget.teacher?.id}.jpg'),
-            fit: BoxFit.cover
-          )
+        Container(
+          color: Colors.white
+        ),
+        Opacity(
+          opacity: opacity,
+          child: Positioned.fill(
+            child: Image(
+              image: AssetImage('assets/${widget.teacher?.id}.jpg'),
+              fit: BoxFit.cover
+            )
+          ),
         ),
         Container(
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.all(16),
           alignment: Alignment.bottomLeft,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
-              colors: <Color>[
-                Colors.black.withAlpha(200), 
-                Colors.black.withAlpha(0), 
-                Colors.black.withAlpha(0), 
-              ]
+              colors: (isAvailable) ? imageGradientAvailable : imageGradientUnavailable
             )
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Spacer(),
+              // Spacer(),
               Text('${teacher?.name}', textScaler: TextScaler.linear(phi), style: TextStyle(color: textColor),),
-              Text(availability.label, style: TextStyle(color: textColor)),
+              Text(availability.label, style: TextStyle(color: availabilityTextColor, fontWeight: FontWeight.bold)),
             ],
           )
         )
       ],
     );
 
-    return Opacity(
-      opacity: opacity,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withAlpha(64), blurRadius: 8, )
+        ] 
+      ),
       child: InkWell(
         onTap: () => _onButtonTap(context),
         borderRadius: BorderRadius.circular(16),

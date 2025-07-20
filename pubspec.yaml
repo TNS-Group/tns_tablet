@@ -9,8 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  english_words: ^4.0.0
   provider: ^6.1.5
+  # dart_vlc: ^0.1.9
 
 dev_dependencies:
   flutter_test:
@@ -22,3 +22,11 @@ flutter:
   assets:
     - assets/DAZ001.jpg
     - assets/DAZ002.jpg
+    - assets/DAZ003.jpg
+    - assets/DAZ004.jpg
+    - assets/DAZ005.jpg
+    - assets/DAZ006.jpg
+    - assets/DAZ007.jpg
+    - assets/DAZ008.jpg
+    - assets/DAZ009.jpg
+    - assets/DAZ010.jpg
