@@ -1,6 +1,5 @@
 import 'package:cool_app/constants.dart';
 import 'package:cool_app/teacher.dart';
-import 'package:cool_app/teacher_button.dart';
 import 'package:flutter/material.dart';
 
 class TeacherInfoMenu extends StatelessWidget {
@@ -11,28 +10,38 @@ class TeacherInfoMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool canNotify = availability == Availability.available;
+    final bool canNotify = (availability == Availability.available);
     VoidCallback? onNotfiyButtonPressed = canNotify ? () {
-      print('ping!');
+      Navigator.pop(context);
+
+      final scfMsgr = ScaffoldMessenger.of(context);
+
+      scfMsgr.clearSnackBars();
+
+      scfMsgr.showSnackBar(
+        SnackBar(content: Text('Notifying ${teacher?.name}...'))
+      );
+
+      notifyTeacher(teacher);
     } : null;
 
-    Widget notifyButton = FilledButton(
+    final Widget notifyButton = FilledButton(
       onPressed: onNotfiyButtonPressed, 
       child: Container(
-        padding: EdgeInsets.all(16),
-        child: Text("${canNotify ? 'Notify' : 'Cannot notify'} ${teacher?.name}")
+        padding: const EdgeInsets.all(16),
+        child: Text("${teacher?.name} ${availability.reason}")
       ,) 
     );
 
-    Widget cancelButton = OutlinedButton(
+    final Widget cancelButton = OutlinedButton(
       onPressed: () => Navigator.pop(context), 
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Text('Cancel') 
       ,) 
     );
 
-    List<Widget> columnList = [
+    final List<Widget> columnList = [
       Text("${teacher?.name}", textScaler: TextScaler.linear(phi), style: TextStyle(fontWeight: FontWeight.bold),),
     ];
 
@@ -44,8 +53,10 @@ class TeacherInfoMenu extends StatelessWidget {
       // margin: EdgeInsets.symmetric(horizontal: 32),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(
+        spacing: 32,
         children: [
           Row(
+            spacing: 16,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
@@ -68,20 +79,18 @@ class TeacherInfoMenu extends StatelessWidget {
                   )
                 )
               ,),
-              SizedBox(width: 16,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: columnList,
               )
             ],
           ),
-          SizedBox(height: 32,),
           Row(
-            spacing: 16,
+            spacing: 8,
             children: [
               Spacer(),
+              notifyButton,
               cancelButton,
-              notifyButton
             ],
           )
         ]

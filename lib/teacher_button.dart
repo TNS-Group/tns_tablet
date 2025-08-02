@@ -3,28 +3,6 @@ import 'package:cool_app/teacher.dart';
 import 'package:cool_app/teacher_info.dart';
 import 'package:flutter/material.dart';
 
-enum Availability {
-  available,
-  doNotDisturb,
-  notAvailable,
-  absent
-}
-
-extension AvailabilityExtension on Availability {
-  String get label {
-    switch (this) {
-      case Availability.available:
-        return 'Available';
-      case Availability.doNotDisturb:
-        return 'Do Not Disturb';
-      case Availability.notAvailable:
-        return 'Not Available';
-      case Availability.absent:
-        return 'Absent';
-    }
-  }
-}
-
 class TeacherButton extends StatefulWidget {
   final Teacher? teacher;
   final Availability initialAvailability;
@@ -36,7 +14,7 @@ class TeacherButton extends StatefulWidget {
 }
 
 class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveClientMixin {
-  Availability availability = Availability.notAvailable;
+  Availability availability = Availability.inClass;
 
   @override
   void initState() {
@@ -71,20 +49,12 @@ class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveCli
   Widget build(BuildContext context) {
     super.build(context);
 
-    final teacher = widget.teacher;
-    // Color widgetColor = availableBGColor;
-    Color textColor = availableTextColor;
-    Color availabilityTextColor = availableAvailabilityTextColor;
-    double opacity = 1;
-
     final bool isAvailable = availability == Availability.available;
 
-    if (!isAvailable) {
-      // widgetColor = unavailableBGColor;
-      textColor = unavailableTextColor;
-      availabilityTextColor = unavailableAvailabilityTextColor;
-      opacity = opacityUnavailable;
-    }
+    final teacher = widget.teacher;
+    final Color textColor             = isAvailable ? availableTextColor : unavailableTextColor;
+    final Color availabilityTextColor = isAvailable ? availableAvailabilityTextColor : unavailableAvailabilityTextColor;
+    final double opacity              = isAvailable ? 1 : opacityUnavailable;
 
     Widget thing = Stack(
       fit: StackFit.expand,
@@ -115,7 +85,6 @@ class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveCli
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // Spacer(),
               Text('${teacher?.name}', textScaler: TextScaler.linear(phi), style: TextStyle(color: textColor),),
               Text(availability.label, style: TextStyle(color: availabilityTextColor, fontWeight: FontWeight.bold)),
             ],
@@ -136,45 +105,13 @@ class TeacherButtonState extends State<TeacherButton> with AutomaticKeepAliveCli
         borderRadius: BorderRadius.circular(16),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
-          child: thing,
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 250),
+            curve: Curves.easeInOut,
+            child:thing
+          ),
         )
       )
     );
-
-    // Keeping old code for documentation purposes lol
-    // return Container(
-    //   margin: EdgeInsets.symmetric(vertical: 8),
-    //   child: InkWell(
-    //     onTap: () {
-    //       setState(() {
-    //         availability = (availability == Availability.notAvailable) ? Availability.available : Availability.notAvailable;
-    //       });
-    //     },
-    //     borderRadius: BorderRadius.circular(16),
-    //     child: ClipRRect(
-    //       borderRadius: BorderRadius.circular(16),
-    //       child: Container(
-    //         decoration: BoxDecoration(
-    //           color: widgetColor,
-    //           borderRadius: BorderRadius.circular(16)
-    //         ),
-    //         child: Row(
-    //           children: [
-    //             Image(
-    //               image: AssetImage('assets/ProfilePlaceholder.jpg'),
-    //               width: 128,
-    //               height: 128,
-    //             ),
-    //             SizedBox(width: 16,),
-    //             Text('${teacher?.name}', textScaler: TextScaler.linear(phi)),
-    //             Spacer(),
-    //             Text(availability.label),
-    //             SizedBox(width: 16,),
-    //           ],
-    //         ),
-    //       )
-    //     )
-    //   )
-    // );
   }
 }
