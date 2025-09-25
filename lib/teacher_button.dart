@@ -1,6 +1,6 @@
-import 'package:cool_app/constants.dart';
-import 'package:cool_app/teacher.dart';
-import 'package:cool_app/teacher_info.dart';
+import 'package:tns_tablet/constants.dart';
+import 'package:tns_tablet/teacher.dart';
+import 'package:tns_tablet/teacher_info.dart';
 import 'package:flutter/material.dart';
 
 class TeacherButton extends StatefulWidget {

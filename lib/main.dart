@@ -1,9 +1,9 @@
-import 'package:cool_app/teacher.dart';
-import 'package:cool_app/teacher_button.dart';
+import 'package:tns_tablet/teacher.dart';
+import 'package:tns_tablet/teacher_button.dart';
 import 'package:flutter/material.dart';
 
 var teachers = [
-  // KeepAlive(keepAlive: true, child: TeacherButton(initialAvailability: Availability.available, teacher: Teacher('DAZ001', 'Mr. Aidan Ocmer', subject: 'PR2', advisory: 'St. Augustine of Hippo'))),
+  KeepAlive(keepAlive: true, child: TeacherButton(initialAvailability: Availability.available, teacher: Teacher('DAZ001', 'Mr. Aidan Ocmer', subject: 'PR2', advisory: 'St. Augustine of Hippo'))),
   KeepAlive(keepAlive: false, child: TeacherButton(initialAvailability: Availability.absent, teacher: Teacher('DAZ003', 'Ms. Sakuya Izayoi', advisory: 'Scarlet Devil Mansion'))),
   KeepAlive(keepAlive: false, child: TeacherButton(initialAvailability: Availability.available, teacher: Teacher('DAZ004', 'Ms. Reimu Hakurei', subject: 'Religion', advisory: 'Hakurei Shrine'))),
   KeepAlive(keepAlive: false, child: TeacherButton(initialAvailability: Availability.doNotDisturb, teacher: Teacher('DAZ005', 'Ms. Marisa Kirisame', subject: 'Magic Arts'))),
@@ -34,10 +34,10 @@ class TeacherListPage extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 0, 4, 255))
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Select Teacher'),
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary
-        ),
+        // appBar: AppBar(
+        //   title: const Text(''),
+        //   backgroundColor: Theme.of(context).colorScheme.inversePrimary
+        // ),
         body: Expanded(
           child: GridView.count(
             padding: EdgeInsets.all(16),
