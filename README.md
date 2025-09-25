@@ -1,3 +1,3 @@
-# cool_app
+# tns_tablet
 
 Welcome contributor
